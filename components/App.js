@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
-//component is not actual defaul for react library
+//component is not actual default for react library
 
 //create class app which extends component from react
 import {Form, FormControl,Button} from 'react-bootstrap';
+import Note from './Note';
 //regular function
 //function roar(message){
   //  console.log(message);
@@ -17,9 +18,26 @@ class App extends Component{
     constructor(){
         super();
         this.state={
-            text: ''//update text
+            text: '',//update text
+            notes:[]
         }
     }
+    //submit helper function
+    submit(){
+    //  const notes= this.state.notes;
+    //  const newnote = {text:this.state.text};
+    //  //newnote object
+    //  notes.push(newnote);
+    //  this.setState({notes : notes});
+
+    //Destructuring objects : code improvement
+  const { notes, text}=this.state; //variable notes is same in left hand and right hand side..create own local variabe of same name
+  // const newnote={text:text}; //key and value are same hence remove key
+ // const newnote={text};
+ // notes.push(newnote);
+ notes.push({text})
+  this.setState(notes);
+}
 render(){
     return(
         <div>
@@ -28,8 +46,15 @@ render(){
                 {/* <FormControl onChange={event=>this.setState({text: event.target.value})}/> */}
                 <FormControl onChange={function(event) {this.setState({text: event.target.value})}.bind(this)}/>
                 {' '}
-                <Button onClick={()=>console.log(this.state)}>Submit </Button>
+                <Button onClick={()=>this.submit()}>Submit </Button>
                 </Form>
+                {this.state.notes.map((note, index) =>{
+                 return(
+                    // <div key={index}>{note.text}</div>
+                    <Note key={index} note={note} />
+                 )
+                })
+                }
             </div>
     )
 }
