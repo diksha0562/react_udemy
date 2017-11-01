@@ -3,6 +3,16 @@ import React,{Component} from 'react';
 
 //create class app which extends component from react
 import {Form, FormControl,Button} from 'react-bootstrap';
+//regular function
+//function roar(message){
+  //  console.log(message);
+//}
+//arrow function
+//arrow function doesn't create its own this object...it just refers to this of the parent object or object around it
+const roar=(message)=>{
+   console.log(message);
+}
+roar('roarr!');
 class App extends Component{
     constructor(){
         super();
@@ -15,7 +25,8 @@ render(){
         <div>
             <h2> Note to Self</h2>
             <Form inline>
-                <FormControl onChange={event=>this.setState({text: event.target.value})}/>
+                {/* <FormControl onChange={event=>this.setState({text: event.target.value})}/> */}
+                <FormControl onChange={function(event) {this.setState({text: event.target.value})}.bind(this)}/>
                 {' '}
                 <Button onClick={()=>console.log(this.state)}>Submit </Button>
                 </Form>
