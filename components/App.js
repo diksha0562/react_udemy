@@ -4,6 +4,8 @@ import React,{Component} from 'react';
 //create class app which extends component from react
 import {Form, FormControl,Button} from 'react-bootstrap';
 import Note from './Note';
+import {bake_cookie, read_cookie, delete_cookie} from 'sfcookies';
+const cookie_key= 'NOTES';
 //regular function
 //function roar(message){
   //  console.log(message);
@@ -22,6 +24,17 @@ class App extends Component{
             notes:[]
         }
     }
+    componentDidMount(){
+        // const notes= read_cookie(cookie_key);
+        // this.setState({notes});
+        this.setState({notes: read_cookie(cookie_key)});
+    }
+
+clear(){
+    delete_cookie(cookie_key);
+    this.setState({notes: []});
+}
+
     //submit helper function
     submit(){
     //  const notes= this.state.notes;
@@ -37,6 +50,7 @@ class App extends Component{
  // notes.push(newnote);
  notes.push({text})
   this.setState(notes);
+  bake_cookie(cookie_key, this.state.notes);
 }
 render(){
     return(
@@ -55,6 +69,8 @@ render(){
                  )
                 })
                 }
+                <hr/>
+                <Button onClick={()=>{this.clear()}}>Clear </Button>
             </div>
     )
 }
