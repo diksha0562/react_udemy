@@ -1,0 +1,47 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+class Methods extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={data:0}
+    }
+    render(){
+        return(
+            <div>
+            <h1>Increament Button</h1>
+            <form>
+                <input type="button" value = "Increament" onClick={()=>this.setState({data:this.state.data+1})} />
+                {this.state.data}
+                <Content mynumber={this.state.data}/>
+                </form>
+            
+            </div>
+        )
+    }
+}
+
+class Content extends React.Component{
+    constructor(props){
+        super(props);
+
+    }
+    componentWillMount() {
+        console.log('Component WILL MOUNT!')
+     }
+     componentDidMount() {
+        console.log('Component DID MOUNT!')
+     }
+
+
+    render(){
+        return(
+            <div>
+            <h2>Number is {this.props.mynumber}</h2>
+            </div>
+        )
+    }
+}
+
+
+
+ReactDOM.render(<Methods/>,document.getElementById("root"));
